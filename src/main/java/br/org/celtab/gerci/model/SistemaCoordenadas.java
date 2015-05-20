@@ -1,5 +1,10 @@
-package br.org.celtab.gerci.model;
+package main.java.br.org.celtab.gerci.model;
 
+/**
+ * 
+ * @author Emerson Luiz dos Santos <emersonsts@gmail.com>
+ *
+ */
 public class SistemaCoordenadas {
 
 	private int codigo;
@@ -31,6 +36,7 @@ public class SistemaCoordenadas {
 	public void setSemiEixoMenor(Double semiEixoMenor) {
 		this.semiEixoMenor = semiEixoMenor;
 	}
+	
 	@Override
 	public String toString() {
 		return this.getDescricao();

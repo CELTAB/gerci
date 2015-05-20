@@ -1,13 +1,18 @@
-package br.org.celtab.gerci.controllers;
+package main.java.br.org.celtab.gerci.controllers;
 
 import java.util.ArrayList;
 
-import br.org.celtab.gerci.model.Complex;
-import br.org.celtab.gerci.model.PontoControle;
-import br.org.celtab.gerci.model.PontoTransformado;
-import br.org.celtab.gerci.model.PontoTransformar;
-import br.org.celtab.gerci.model.Transformacao;
+import main.java.br.org.celtab.gerci.model.Complex;
+import main.java.br.org.celtab.gerci.model.PontoControle;
+import main.java.br.org.celtab.gerci.model.PontoTransformado;
+import main.java.br.org.celtab.gerci.model.PontoTransformar;
+import main.java.br.org.celtab.gerci.model.Transformacao;
 
+/**
+ * 
+ * @author Emerson Luiz dos Santos <emersonsts@gmail.com>
+ *
+ */
 public class ColTransformacaoCoordenadas {
 	
 	public static ArrayList<PontoTransformado> serviceTransformacao(Transformacao transformacao){

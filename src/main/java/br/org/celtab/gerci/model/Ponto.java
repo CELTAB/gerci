@@ -1,5 +1,10 @@
-package br.org.celtab.gerci.model;
+package main.java.br.org.celtab.gerci.model;
 
+/**
+ * 
+ * @author Emerson Luiz dos Santos <emersonsts@gmail.com>
+ *
+ */
 public class Ponto {
 
 	private String id;
@@ -20,7 +25,6 @@ public class Ponto {
 	}
 	
 	public Ponto(){
-		
 	}
 	
 	public String getId() {
@@ -60,13 +64,11 @@ public class Ponto {
 		this.sistemaCoordenadas = sistemaCoordenadas;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Ponto [id=" + id + ", norte=" + norte + ", este=" + este
 				+ ", h=" + h + ", h2=" + h2 + ", sistemaCoordenadas="
 				+ sistemaCoordenadas.toString() + "]";
 	}
-	
 	
 }

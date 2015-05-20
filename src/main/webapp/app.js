@@ -1,3 +1,14 @@
+/**
+ * 
+ * @author Mohamad Abu Ali <arabian@brasnet.org>
+ * @author Thiago R. M. Bitencourt <thiago.mbitencourt@gmail.com>
+ *
+ */
+
+
+/**
+ * 
+ */
 var app = angular.module('mainModule',['ui.bootstrap'])
 	.config( [
 	    '$compileProvider',
@@ -6,6 +17,9 @@ var app = angular.module('mainModule',['ui.bootstrap'])
 	    }
 ]);
 
+/**
+ * 
+ */
 app.controller('mainController', function($scope, $http, $modal){
 	
 	$scope.pontosControleS1 = [];
@@ -19,7 +33,10 @@ app.controller('mainController', function($scope, $http, $modal){
 	$scope.tblPontosControle = false;
 	$scope.tblPontosTransformar = false;
 	$scope.tblControleTransforma = false;
-		
+	
+	/**
+	 * 
+	 */
 	$scope.upload_pontosControle = function (element) {
 		 var reader = new FileReader();
 		 
@@ -32,7 +49,10 @@ app.controller('mainController', function($scope, $http, $modal){
          var pontosControle = element.files[0];
          reader.readAsText(pontosControle);
 	}
-
+	
+	/**
+	 * 
+	 */
 	$scope.upload_pontosTransformar = function (element) {
 		 var reader = new FileReader();
 		 
@@ -47,15 +67,21 @@ app.controller('mainController', function($scope, $http, $modal){
 	}
 	
 	$scope.sobre = function(){
-		openModal('sobre','zeeeeeeeeeeeeeee',$modal);
+		openModal('sobre','',$modal);
 	}
 	
 	$scope.ajuda = function(){
-		openModal('ajuda','ze2',$modal);
+		openModal('ajuda','',$modal);
 	}
 	
 });
 
+/**
+ * 
+ * @param $scope
+ * @param $modal
+ * @param result
+ */
 function processaPontosControle($scope, $modal, result){
 	
 	var sistemaCoordenadasS1 = $scope.sistemaCoordenadasS1 = new Object;
@@ -140,6 +166,13 @@ function processaPontosControle($scope, $modal, result){
 	}
 }
 
+/**
+ * 
+ * @param $scope
+ * @param $http
+ * @param $modal
+ * @param result
+ */
 function processaPontosTransformar($scope, $http, $modal, result){
 	
 	var pontosTransformar = $scope.pontosTransformar = [];
@@ -193,6 +226,12 @@ function processaPontosTransformar($scope, $http, $modal, result){
 	}	
 }
 
+/**
+ * 
+ * @param $scope
+ * @param $http
+ * @param $modal
+ */
 function transforma($scope, $http, $modal){
 	var transformacao = new Object;
 
@@ -202,7 +241,7 @@ function transforma($scope, $http, $modal){
 	transformacao.sistemaCoordenadasDe = $scope.sistemaCoordenadasS1;
 	transformacao.sistemaCoordenadasPara = $scope.sistemaCoordenadasS2;
 		
-	$http.post('service/transformacao/transforma', angular.toJson(transformacao)).
+	$http.post('service/transformacao', angular.toJson(transformacao)).
 	  success(function(data, status, headers, config) {
 		  $scope.pontosTransformados = data;
 		  verificaPontosTransformados(data);
@@ -213,6 +252,10 @@ function transforma($scope, $http, $modal){
 	  });
 }
 
+/**
+ * 
+ * @param pontos
+ */
 function verificaPontosControle(pontos){
 	pontos.forEach(function(ponto, index){
 		for (i=index+1; i < pontos.length; i++){
@@ -223,6 +266,10 @@ function verificaPontosControle(pontos){
 	});	
 }
 
+/**
+ * 
+ * @param pontos
+ */
 function verificaPontosTransformados(pontos){
 	
 	pontos.forEach(function(ponto, index){
@@ -233,9 +280,14 @@ function verificaPontosTransformados(pontos){
 			}
 		}
 	});	
-	
 }
 
+/**
+ * 
+ * @param type
+ * @param message
+ * @param $modal
+ */
 function openModal(type, message, $modal){
 	var template;
 	var size;
@@ -268,10 +320,18 @@ function openModal(type, message, $modal){
 	});
 }
 
+/**
+ * 
+ * @param tagId
+ */
 function clearFileInputField(tagId) {
     document.getElementById(tagId).innerHTML = document.getElementById(tagId).innerHTML;
 }
 
+/**
+ * 
+ * @param $scope 
+ */
 function exportarTXT($scope){
 
 	var pontosTransformados = $scope.pontosTransformados;

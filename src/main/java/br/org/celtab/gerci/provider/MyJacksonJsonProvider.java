@@ -1,4 +1,4 @@
-package br.org.celtab.gerci.provider;
+package main.java.br.org.celtab.gerci.provider;
  
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
@@ -14,10 +14,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @see https://jersey.java.net/documentation/latest/media.html#d0e4799
  */
 
+/**
+ *
+ * @author Mohamad Abu Ali <arabian@brasnet.org>
+ * @author Thiago R. M. Bitencourt <thiago.mbitencourt@gmail.com>
+ *
+ */
 @Provider
-//@Produces({MediaType.APPLICATION_JSON})
-//@Consumes(MediaType.APPLICATION_JSON)
-//@Singleton
 public class MyJacksonJsonProvider implements ContextResolver<ObjectMapper> {
 	
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -25,16 +28,13 @@ public class MyJacksonJsonProvider implements ContextResolver<ObjectMapper> {
     static {
       MAPPER.setSerializationInclusion(Include.NON_EMPTY);
       MAPPER.disable(MapperFeature.USE_GETTERS_AS_SETTERS);
-      //MAPPER.disable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
     }
  
     public MyJacksonJsonProvider() {
-        //System.out.println("Instantiate MyJacksonJsonProvider");
     }
      
     @Override
     public ObjectMapper getContext(Class<?> type) {
-        //System.out.println("MyJacksonProvider.getContext() called with type: "+type);
         return MAPPER;
     } 
 }

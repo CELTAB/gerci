@@ -1,9 +1,13 @@
-package br.org.celtab.gerci.model;
+package main.java.br.org.celtab.gerci.model;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Emerson Luiz dos Santos <emersonsts@gmail.com>
+ *
+ */
 public class PontoTransformado extends Ponto {
-
 
 	private PontoTransformar origem;
 	private ArrayList<PontoControle> ptosControleVizinhos;
@@ -14,11 +18,9 @@ public class PontoTransformado extends Ponto {
 	public PontoTransformado(String id, Double norte, Double este, Double h,
 			Double h2, SistemaCoordenadas sistemaCoordenadas) {
 		super(id, norte, este, h, h2, sistemaCoordenadas);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public PontoTransformado(){
-		
 	}
 	
 	public PontoTransformar getOrigem() {
@@ -51,6 +53,5 @@ public class PontoTransformado extends Ponto {
 	public void setGamma(Complex gamma) {
 		this.gamma = gamma;
 	}
-	
 	
 }

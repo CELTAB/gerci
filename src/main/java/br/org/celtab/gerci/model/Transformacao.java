@@ -1,7 +1,12 @@
-package br.org.celtab.gerci.model;
+package main.java.br.org.celtab.gerci.model;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Emerson Luiz dos Santos <emersonsts@gmail.com>
+ *
+ */
 public class Transformacao {
 
 	private ArrayList<PontoControle> pontosControleS1 = new ArrayList<PontoControle>();

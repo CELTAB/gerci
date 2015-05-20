@@ -5,18 +5,18 @@
 	  <modelVersion>4.0.0</modelVersion>
 	  <groupId>gerci</groupId>
 	  <artifactId>gerci</artifactId>
-	  <version>0.0.1-SNAPSHOT</version>
+	  <version>1.0.0</version>
 	  <name>gerci</name>
 	  <packaging>war</packaging>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <version.jdk>1.7</version.jdk>  <!-- 1.7 for JDK 7 -->
+        <version.jdk>1.7</version.jdk>  <!-- 1.8 for JDK 8 -->
         <version.mvn.compiler>3.2</version.mvn.compiler>
         <version.mvn.war.plugin>2.6</version.mvn.war.plugin>
         <version.jersey>2.15</version.jersey>
-        <version.servlet.api>3.0.1</version.servlet.api>  <!-- use 3.0.1 for Tomcat 7 or Java EE 6 (i.e. Glassfish 3.x) -->
+        <version.servlet.api>3.0.1</version.servlet.api>  <!-- use 3.1.0 for Tomcat 8 -->
     </properties>
     
     <repositories>
@@ -137,4 +137,8 @@
         </plugins>
     </build>
  
+    <organization>
+    	<name>Celtab</name>
+    	<url>http://gerci.celtab.org.br</url>
+    </organization>
 </project>

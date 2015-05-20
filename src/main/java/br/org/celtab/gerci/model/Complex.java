@@ -1,11 +1,14 @@
-package br.org.celtab.gerci.model;
+package main.java.br.org.celtab.gerci.model;
 
+/**
+ * 
+ * @author Emerson Luiz dos Santos <emersonsts@gmail.com>
+ *
+ */
 public class Complex {
-
 
 	private double m_Real;
 	private double m_Imaginary;
-
 
 	public Complex() {
 		m_Real = 0D;
