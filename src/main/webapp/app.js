@@ -46,6 +46,14 @@ app.controller('mainController', function($scope, $http, $modal){
          reader.readAsText(pontosTransformar);
 	}
 	
+	$scope.sobre = function(){
+		openModal('sobre','zeeeeeeeeeeeeeee',$modal);
+	}
+	
+	$scope.ajuda = function(){
+		openModal('ajuda','ze2',$modal);
+	}
+	
 });
 
 function processaPontosControle($scope, $modal, result){
@@ -128,7 +136,7 @@ function processaPontosControle($scope, $modal, result){
 		pontosControleS1 = [];
 		pontosControleS2 = [];
 		clearFileInputField('uploadFilePontosControle');
-		openErrorModal(e.message, $modal); 
+		openModal('error', e.message, $modal); 
 	}
 }
 
@@ -181,7 +189,7 @@ function processaPontosTransformar($scope, $http, $modal, result){
 	}catch (e) {
 		pontosTransformar = [];
 		clearFileInputField('uploadFilePontosTransformar');
-		openErrorModal(e.message, $modal); 
+		openModal('error', e.message, $modal); 
 	}	
 }
 
@@ -201,7 +209,7 @@ function transforma($scope, $http, $modal){
 	      exportarTXT($scope);
 	  }).
 	  error(function(data, status, headers, config) {
-		  openErrorModal("Problemas ao acessar o serviço de transformação.", $modal);
+		  openModal('error', 'Problemas ao acessar o serviço de transformação.', $modal);
 	  });
 }
 
@@ -228,13 +236,31 @@ function verificaPontosTransformados(pontos){
 	
 }
 
-function openErrorModal(message, $modal){
+function openModal(type, message, $modal){
+	var template;
+	var size;
+	switch (type) {
+	case "error":
+		template = "error.html";
+		break;
+	case "ajuda":
+		template = "ajuda.html";	
+		size = 'lg';
+		break;
+	case "sobre":
+		template = "sobre.html";
+		size = 'lg';
+		break;
+	default:
+		break;
+	}
+	
 	$modal.open({
 		animation: true, 
-		templateUrl: 'error.html',
+		templateUrl: template,
+		size: size,
 		controller: function($scope, $modalInstance){
-			$scope.errorMessage = message;
-			
+			$scope.message = message;
 			$scope.close = function() {
                 $modalInstance.dismiss('cancel');
             };
