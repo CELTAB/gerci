@@ -137,13 +137,13 @@ function processaPontosControle($scope, $modal, result){
 			   }else{
 					pCS1.norte = linha[1].replace(",",".");
 					pCS1.este = linha[2].replace(",",".");
-					pCS1.h = linha[3];
-					pCS1.h2 = linha[4];
+					pCS1.h = linha[3].replace(",",".");
+					pCS1.h2 = linha[4].replace(",",".");
 											
 					pCS2.norte = linha[5].replace(",",".");
 					pCS2.este = linha[6].replace(",",".");
-					pCS2.h = linha[7];
-					pCS2.h2 = linha[8];
+					pCS2.h = linha[7].replace(",",".");
+					pCS2.h2 = linha[8].replace(",",".");
 			   }
 			   
 			   if(pCS1.id != "" || pCS2.id != ""){
@@ -205,8 +205,8 @@ function processaPontosTransformar($scope, $http, $modal, result){
 			   }else{
 					pTS1.norte = linha[1].replace(",",".");
 					pTS1.este = linha[2].replace(",",".");
-					pTS1.h = linha[3];
-					pTS1.h2 = linha[4];
+					pTS1.h = linha[3].replace(",",".");
+					pTS1.h2 = linha[4].replace(",",".");
 			   }
 		
 			   if(pTS1.id != ""){
@@ -240,7 +240,7 @@ function transforma($scope, $http, $modal){
 	transformacao.pontosTransformar = $scope.pontosTransformar;
 	transformacao.sistemaCoordenadasDe = $scope.sistemaCoordenadasS1;
 	transformacao.sistemaCoordenadasPara = $scope.sistemaCoordenadasS2;
-		
+	
 	$http.post('service/transformacao', angular.toJson(transformacao)).
 	  success(function(data, status, headers, config) {
 		  $scope.pontosTransformados = data;
@@ -334,19 +334,20 @@ function clearFileInputField(tagId) {
  */
 function exportarTXT($scope){
 
-	var pontosTransformados = $scope.pontosTransformados;
-	var str = 'ID\tN\tE\r\n';
+    var pontosTransformados = $scope.pontosTransformados;
+    var sistemaCoordenadasS2 = pontosTransformados[0].sistemaCoordenadas.descricao;
+    var str = 'ID\tNorte-'+sistemaCoordenadasS2+'\tEste-'+sistemaCoordenadasS2+'\r\n';
 
     for (var i = 0; i < pontosTransformados.length; i++) {
-    	var dup = (pontosTransformados[i].origem.duplicate == true) ? "*":"";
+        var dup = (pontosTransformados[i].origem.duplicate == true) ? "*":"";
         var line = dup+pontosTransformados[i].id+"\t"+pontosTransformados[i].norte.toFixed(3).replace(".",",")+"\t"+pontosTransformados[i].este.toFixed(3).replace(".",",");
         str += line + '\r\n';
     }
 
     var date = new Date();
-    var dateString = date.getDate()+"-"+(date.getMonth() + 1)+"-"+date.getFullYear()+"-"+date.getHours()+"-"+date.getMinutes();
+    var dateString = date.getDate()+""+(date.getMonth() + 1)+""+date.getFullYear()+"_"+date.getHours()+""+date.getMinutes()+""+date.getSeconds();
 
     $scope.textData = "data:application/octet-stream;base64," + btoa(str);
-    $scope.textFile = "PontosTransformados-"+dateString+".txt";
+    $scope.textFile = "Resultado"+sistemaCoordenadasS2+"_"+dateString+".txt";
    
 }
