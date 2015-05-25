@@ -44,11 +44,9 @@ public class ColTransformacaoCoordenadas {
 	public static PontoTransformado calculaTransformacaoPonto(PontoTransformado pto, Complex centroGravidadeS1, Complex centroGravidadeS2) {
 		
 		Complex ptOrigem   = new Complex(pto.getOrigem().getEste(), pto.getOrigem().getNorte());
-		
 		Complex alfa   = ColTransformacaoCoordenadas.calculaAlfa(pto, centroGravidadeS1, centroGravidadeS2);
-        Complex beta   = ColTransformacaoCoordenadas.calculaBeta(pto, centroGravidadeS1, centroGravidadeS2);
-        Complex gamma  = ColTransformacaoCoordenadas.calculaGamma(pto, centroGravidadeS1, centroGravidadeS2);
-        
+		Complex beta   = ColTransformacaoCoordenadas.calculaBeta(pto, centroGravidadeS1, centroGravidadeS2);
+		Complex gamma  = ColTransformacaoCoordenadas.calculaGamma(pto, centroGravidadeS1, centroGravidadeS2);
 		Complex res = new Complex();
 		Complex tmpOrig = Complex.subtracao(ptOrigem,centroGravidadeS1);
 		

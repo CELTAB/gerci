@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author Emerson Luiz dos Santos <emersonsts@gmail.com>
+ * @author Mohamad Abu Ali <arabian@brasnet.org>
+ * @author Thiago R. M. Bitencourt <thiago.mbitencourt@gmail.com>
  *
  */
 public class Transformacao {
