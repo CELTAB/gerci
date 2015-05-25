@@ -125,25 +125,25 @@ function processaPontosControle($scope, $modal, result){
 			   pCS2.sistemaCoordenadas = sistemaCoordenadasS2;
 		
 			   if (linha.length < 9){
-					pCS1.norte = linha[1].replace(",",".");
-					pCS1.este = linha[2].replace(",",".");
+					pCS1.norte = pontoValido(linha[0], linha[1], i);
+					pCS1.este = pontoValido(linha[0], linha[2], i);
 					pCS1.h = 0;
 					pCS1.h2 = 0;
 											
-					pCS2.norte = linha[3].replace(",",".");
-					pCS2.este = linha[4].replace(",",".");
+					pCS2.norte = pontoValido(linha[0], linha[3], i);
+					pCS2.este = pontoValido(linha[0], linha[4], i);
 					pCS2.h = 0;
 					pCS2.h2 = 0;
 			   }else{
-					pCS1.norte = linha[1].replace(",",".");
-					pCS1.este = linha[2].replace(",",".");
-					pCS1.h = linha[3].replace(",",".");
-					pCS1.h2 = linha[4].replace(",",".");
+					pCS1.norte = pontoValido(linha[0], linha[1], i);
+					pCS1.este = pontoValido(linha[0], linha[2], i);
+					pCS1.h = pontoValido(linha[0], linha[3], i);
+					pCS1.h2 = pontoValido(linha[0], linha[4], i);
 											
-					pCS2.norte = linha[5].replace(",",".");
-					pCS2.este = linha[6].replace(",",".");
-					pCS2.h = linha[7].replace(",",".");
-					pCS2.h2 = linha[8].replace(",",".");
+					pCS2.norte = pontoValido(linha[0], linha[5], i);
+					pCS2.este = pontoValido(linha[0], linha[6], i);
+					pCS2.h = pontoValido(linha[0], linha[7], i);
+					pCS2.h2 = pontoValido(linha[0], linha[8], i);
 			   }
 			   
 			   if(pCS1.id != "" || pCS2.id != ""){
@@ -162,7 +162,7 @@ function processaPontosControle($scope, $modal, result){
 		pontosControleS1 = [];
 		pontosControleS2 = [];
 		clearFileInputField('uploadFilePontosControle');
-		openModal('error', e.message, $modal); 
+		openModal('error', e.message, $modal);
 	}
 }
 
@@ -198,15 +198,15 @@ function processaPontosTransformar($scope, $http, $modal, result){
 			   pTS1.sistemaCoordenadas = $scope.sistemaCoordenadasS1;
 			   
 			   if (linha.length < 5){
-					pTS1.norte = linha[1].replace(",",".");
-					pTS1.este = linha[2].replace(",",".");
+					pTS1.norte = pontoValido(linha[0], linha[1], i);
+					pTS1.este = pontoValido(linha[0], linha[2], i);
 					pTS1.h = 0;
 					pTS1.h2 = 0;
 			   }else{
-					pTS1.norte = linha[1].replace(",",".");
-					pTS1.este = linha[2].replace(",",".");
-					pTS1.h = linha[3].replace(",",".");
-					pTS1.h2 = linha[4].replace(",",".");
+					pTS1.norte = pontoValido(linha[0], linha[1], i);
+					pTS1.este = pontoValido(linha[0], linha[2], i);
+					pTS1.h = pontoValido(linha[0], linha[3], i);
+					pTS1.h2 = pontoValido(linha[0], linha[4], i);
 			   }
 		
 			   if(pTS1.id != ""){
@@ -222,7 +222,7 @@ function processaPontosTransformar($scope, $http, $modal, result){
 	}catch (e) {
 		pontosTransformar = [];
 		clearFileInputField('uploadFilePontosTransformar');
-		openModal('error', e.message, $modal); 
+		openModal('error', e.message, $modal);
 	}	
 }
 
@@ -271,7 +271,6 @@ function verificaPontosControle(pontos){
  * @param pontos
  */
 function verificaPontosTransformados(pontos){
-	
 	pontos.forEach(function(ponto, index){
 		for (i=index+1; i < pontos.length; i++){
 			if ((ponto.origem.id == pontos[i].origem.id) || (ponto.origem.norte == pontos[i].origem.norte && ponto.origem.este == pontos[i].origem.este)){
@@ -350,4 +349,25 @@ function exportarTXT($scope){
     $scope.textData = "data:application/octet-stream;base64," + btoa(str);
     $scope.textFile = "Resultado"+sistemaCoordenadasS2+"_"+dateString+".txt";
    
+}
+/**
+ * 
+ * @param id
+ * @param num
+ * @param i
+ * @returns
+ */
+function pontoValido(id,num,i){
+	if (num !== undefined){
+		var number = num.replace(",",".");
+		
+		if(Number(number)){
+			return number;
+		}else{
+			throw new Error("O Ponto com ID ("+id+") Linha ("+(i+1)+") não está no formato correto.");
+		}
+	}else{
+		throw new Error("O Ponto com ID ("+id+") Linha ("+(i+1)+") não está no formato correto.");
+	}
+		
 }
