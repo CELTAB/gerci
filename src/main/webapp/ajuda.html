@@ -7,22 +7,58 @@
     <h4 class="modal-title"><span class="glyphicon glyphicon-question-sign"></span> Ajuda</h4>
 </div>
 <div class="modal-body">
-    <h2 class="text-center">AJUDA.</h2>
-    <br/>
-    <h4 class="text-center">Texto da Ajuda AQUI.</h4>
-    
-    <strong>Exemplos de Arquivos</strong>
-	<br>
-	<a href="exemplos/Exemplo01_PontosdeControleEmS1eS2.txt" download>Exemplo01_PontosdeControleEmS1eS2.txt</a>
-	<br>
-	<a href="exemplos/Exemplo02_PontosdeControleEmS1eS2.txt" download>Exemplo02_PontosdeControleEmS1eS2.txt</a>
-	<br>
-	<a href="exemplos/Exemplo01_PontosaTransformarEmS1.txt" download>Exemplo01_Pontos aTransformarEmS1.txt</a>
-	<br>
-	<a href="exemplos/Exemplo02_PontosaTransformarEmS1.txt" download>Exemplo02_Pontos aTransformarEmS1.txt</a>
-	<br>
-	<a href="exemplos/Exemplo_ResultadoREFS2_01012015_115959.txt" download>Exemplo_ResultadoREFS2_01012015_115959.txt</a>
-	<br>
+	<div class="container-fluid">
+		<div class="wrapper">
+			<h3 class="text-center">GERCI - Gerênciador de Coordendas Itaipu</h3>
+
+			<p class="text-justify">
+				O sistema GERCI realiza a conversão entre sistema de coordenadas, e para isso faz a leitura de arquivo contendo os pontos a serem transformados. Para a utilização do sistema é necessário ter em mão os arquivos com os dados referentes aos pontos de controle e com os pontos a serem transformados. Os pontos de controle são os pontos conhecidos nos dois sistemas de coordenadas em que se deseja trabalhar, ou seja, o sistema de origem e o sistema de destino.
+			</p>
+			<p class="text-justify">
+				O primeiro arquivo a ser carregado no GERCI é um arquivo contendo os pontos de controle. Na janela inicial do sistema clique no botão <em>Escolher Arquivo</em> (ou <em>Choose File</em>, em inglês), dentro do campo Carregar Pontos de Controle. Ao clicar neste botão será aberto uma janela para que o arquivo de entrada, com os pontos de controle, seja selecionado. Após selecionar o aquivo desejado <em>Abrir</em> (ou <em>Open</em>, em inglês). 
+			</p>
+			<p class="text-justify">
+				Quando o arquivo for carregado o sistema irá automaticamente fazer a leitura do arquivo, e irá apresentar os pontos de controle em forma de tabela para que o usuário veja o resultado. 
+			</p>
+			<p class="text-justify">
+				O arquivo com as informações de pontos de controle devem seguir um padrão pré-definido, que pode ser encontrado na página <em>wiki</em> do Celtab: <a href="http://wiki.celtab.org.br/index.php/gerci" target="_blank">http://wiki.celtab.org.br/index.php/gerci</a>. Exemplos de arquivos de entrada podem ser baixados através dos <em>links</em> que se encontram ao final desta página.
+			</p>
+			<p class="text-justify">
+				Quando um arquivo não apresenta a estrutura desejada ou contém informações duplicadas, o sistema irá informar ao usuário do problema e reverter a janela para o estado inicial.
+			</p>
+			<p class="text-justify">
+				Se o processamento do arquivo ocorrer sem nenhum problema os dados serão apresentados e será apresentada um novo campo, chamado <em>Carregar Pontos a Transformar</em>, e será aberta a opção para carregar o arquivo com os dados a serem transformados.
+			</p>
+			<p class="text-justify">
+				No novo campo aberto clique no botão <em>Escolher Arquivo</em> (ou <em>Choose File</em>, em inglês). Ao clicar neste botão será aberto uma janela para que o arquivo de entrada, com os pontos a transformar, seja selecionado. Após selecionar o aquivo desejado <em>Abrir</em> (ou <em>Open</em>, em inglês).
+			</p>
+			<p class="text-justify">
+				Após o arquivo ser carregado o sistema irá automaticamente realizar a transformação entre os sistemas de coordenadas. Nesta etapa, se o arquivo com os pontos a transformar contiverem pontos iguais, estes serão indicados com uma linha vermelha na tabela que será apresentada.
+			</p>
+			<p>
+				Após a realização da transformação será apresentado dois botões:<br>
+				<strong>Salvar em Texto</strong>: Salva o resultado da transformação em um arquivo de texto.<br> 
+				<strong>Nova Transformação</strong>: Volta a janela principal para o estado inicial.
+			</p>
+			<p>
+				<strong>Obs.: </strong>Se o arquivo de pontos a transformar contiverem pontos com os mesmo valores, então no arquivo de saída estes pontos serão identificados com um * antes do valor de identificação (ID).	
+			</p>
+			<div>
+				<strong>Exemplos de Arquivos</strong>
+				<br>
+				<a href="exemplos/Exemplo01_PontosdeControleEmS1eS2.txt" download>Exemplo01_PontosdeControleEmS1eS2.txt</a>
+				<br>
+				<a href="exemplos/Exemplo02_PontosdeControleEmS1eS2.txt" download>Exemplo02_PontosdeControleEmS1eS2.txt</a>
+				<br>
+				<a href="exemplos/Exemplo01_PontosaTransformarEmS1.txt" download>Exemplo01_Pontos aTransformarEmS1.txt</a>
+				<br>
+				<a href="exemplos/Exemplo02_PontosaTransformarEmS1.txt" download>Exemplo02_Pontos aTransformarEmS1.txt</a>
+				<br>
+				<a href="exemplos/Exemplo_ResultadoREFS2_01012015_115959.txt" download>Exemplo_ResultadoREFS2_01012015_115959.txt</a>
+				<br>
+			</div>
+		</div>
+	</div>
 </div>
  <div class="modal-footer">
 	<button class="btn btn-primary" ng-click="close()">Fechar</button>
