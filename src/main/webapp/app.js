@@ -259,8 +259,8 @@ function transforma($scope, $http, $modal){
 		  verificaPontosTransformados(data);
 	      exportarTXT($scope);
 	  }).
-	  //Se o serviço de transformação retornar erro, o usuário será informado através de uma mensagem de erro.
 	  error(function(data, status, headers, config) {
+		  //Se o serviço de transformação retornar erro, o usuário será informado através de uma mensagem de erro.
 		  openModal('error', 'Problemas ao acessar o serviço de transformação.', $modal);
 	  });
 }
@@ -322,7 +322,7 @@ function openModal(type, message, $modal){
 	default:
 		break;
 	}
-	
+
 	// Abre a janela modal baseada nas informações definidas.
 	$modal.open({
 		animation: true, 
@@ -386,29 +386,12 @@ function exportarTXT($scope){
  * @returns retorna o valor numérico
  */
 function pontoValido(id,num,i){
-	
-	
-	// TESTAR - Faz a mesma coisa, porém com código melhor
-//	if (num !== undefined && Number(num.replace(",","."))){
-//		return num.replace(",",".");
-//		
-//	}else{
-//		throw new Error("O Ponto com ID ("+id+") Linha ("+(i+1)+") não está no formato correto.");
-//	}
-	
-	// Se o número for indefinido(nulo) não é possível utilizá-lo 
-	if (num !== undefined){
-		// Troca virgulas por ponto.
-		var number = num.replace(",",".");
 		
-		// Após o replace, verifica se o conteúdo da variável é um numero, se for: Retorna o valor numérico.
-		if(Number(number)){
-			return number;
-		}else{
-			// Se o valor da variável não puder ser convertido para um valor numérico, então apresenta uma mensagem de erro de formatação para o usuário
-			throw new Error("O Ponto com ID ("+id+") Linha ("+(i+1)+") não está no formato correto.");
-		}
+	// Se o número for indefinido(nulo) não é possível utilizá-lo e verifica se o conteúdo da variável é um numero, se for: Retorna o valor numérico.
+	if (num !== undefined && Number(num.replace(",","."))){
+		return num.replace(",",".");	
 	}else{
+		// Se o valor da variável não puder ser convertido para um valor numérico, então apresenta uma mensagem de erro de formatação para o usuário
 		throw new Error("O Ponto com ID ("+id+") Linha ("+(i+1)+") não está no formato correto.");
 	}
 }
