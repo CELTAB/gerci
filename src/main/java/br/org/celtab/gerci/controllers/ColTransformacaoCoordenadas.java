@@ -11,7 +11,7 @@ import main.java.br.org.celtab.gerci.model.Transformacao;
 /**
  * 
  * @author Emerson Luiz dos Santos <emersonsts@gmail.com>
- *
+ * Classe que recebe os pontos a serem transformados, realiza todo o processamento necessário e retorna uma lista com os novos valores dos pontos transformados.
  */
 public class ColTransformacaoCoordenadas {
 	
@@ -157,6 +157,8 @@ public class ColTransformacaoCoordenadas {
 		
 	}
 	
+	
+	// NÃO REMOVER - Será usado para calcular os pontos mais próximos, baseando-se apenas da distância direta entre os pontos.
 /*
      private static double calculaDistancia(Ponto a, Ponto b) {
     	  
@@ -172,7 +174,10 @@ public class ColTransformacaoCoordenadas {
          
          return dist; 
      }
+*/
 
+	// NÃO REMOVER - Será utilizado para calcular os pontos mais próximos, de maneira que estes forme um triângulo em volta do ponto a ser transformado.
+	/*
      private static double calculaTriangulo(Ponto verticeA, Ponto verticeB, Ponto verticeOrigem) { 
 
          double a = calculaDistancia(verticeOrigem, verticeA);
@@ -186,6 +191,7 @@ public class ColTransformacaoCoordenadas {
      }
 */
 
+	//Faz o calculo do Alfa para cada ponto a ser transformado. Implementado por Emerson
 	public static Complex calculaAlfa(PontoTransformado ptoTransformado, Complex centroGravidadeS1, Complex centroGravidadeS2) {
 		
 		ArrayList<PontoControle> vizinhos = ptoTransformado.getPtosControleVizinhos();

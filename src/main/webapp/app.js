@@ -2,23 +2,25 @@
  * 
  * @author Mohamad Abu Ali <arabian@brasnet.org>
  * @author Thiago R. M. Bitencourt <thiago.mbitencourt@gmail.com>
- *
+ * 
+ * Métos e funções JavaScript, responsável pelo processamento da interface gráfica e pela comunicação com o serviço de transformação.
  */
 
 
 /**
- * 
+ * Módulo Angular, com dependência do ui.bootstrap
  */
 var app = angular.module('mainModule',['ui.bootstrap'])
-	.config( [
+		.config( [
 	    '$compileProvider',
 	    function( $compileProvider ){   
+	    	// configura o módulo para permitir o download das informações via data:application
 	        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto):|data:application\/octet-stream/);
 	    }
 ]);
 
 /**
- * 
+ * Controllers do módulo da aplicação.
  */
 app.controller('mainController', function($scope, $http, $modal){
 	
@@ -35,13 +37,14 @@ app.controller('mainController', function($scope, $http, $modal){
 	$scope.tblControleTransforma = false;
 	
 	/**
-	 * 
+	 *  Carrega os pontos de controle a partir de um arquivo indicado pelo usuário.
 	 */
 	$scope.upload_pontosControle = function (element) {
 		 var reader = new FileReader();
 		 
 		  reader.onload = function(e) {
 		      $scope.$apply(function() {
+		    	  // Chama o método que irá processar os pontos carregados
 		          processaPontosControle($scope, $modal, reader.result);
 		      });
 		  };
@@ -51,13 +54,14 @@ app.controller('mainController', function($scope, $http, $modal){
 	}
 	
 	/**
-	 * 
+	 * Carrega os pontos a tranformar a partir de um arquivo indicado pelo usuário.
 	 */
 	$scope.upload_pontosTransformar = function (element) {
 		 var reader = new FileReader();
 		 
 		  reader.onload = function(e) {
 		      $scope.$apply(function() {
+		    	// Chama o método que irá processar os pontos carregados
 		          processaPontosTransformar($scope, $http, $modal, reader.result);
 		      });
 		  };
@@ -66,10 +70,12 @@ app.controller('mainController', function($scope, $http, $modal){
          reader.readAsText(pontosTransformar);
 	}
 	
+	// Abre uma janela modal que apresenta uma breve descrição sobre o sistema
 	$scope.sobre = function(){
 		openModal('sobre','',$modal);
 	}
 	
+	// Abre uma janela modal que apresenta a descrição e utilização do sistema, para o usuário final
 	$scope.ajuda = function(){
 		openModal('ajuda','',$modal);
 	}
@@ -77,7 +83,8 @@ app.controller('mainController', function($scope, $http, $modal){
 });
 
 /**
- * 
+ * Método que recebe os pontos de controle e verifica se estes estão de acordo com o padrão esperado.
+ * Se o padrão do conteúdo do arquivo não estiver correto o usuário será informado através de uma mensagem de erro.
  * @param $scope
  * @param $modal
  * @param result
@@ -93,10 +100,12 @@ function processaPontosControle($scope, $modal, result){
 	
 	try{
 	
+		// Faz a leitura da primeira linha do arquivo, para extrair o cabeçalho.
 		var string_pontosControle = result.split(/[\t]*[\s]*[\r]*\n/);
 		
 		var linha0 = string_pontosControle[0].split(/[\t]+/);
 		
+		// Se houver problema no cabeçalho do arquivo, apresenta um erro para o usuário
 		if(linha0.length != 5 || linha0[0] != "ID"){
 			throw new Error("Verifique se o padrão do cabeçalho está no formato correto.");
 		}
@@ -167,7 +176,8 @@ function processaPontosControle($scope, $modal, result){
 }
 
 /**
- * 
+ * Método que recebe os pontos a transformar e verifica se estes estão de acordo com o padrão esperado.
+ * Se o padrão do conteúdo do arquivo não estiver correto o usuário será informado através de uma mensagem de erro.
  * @param $scope
  * @param $http
  * @param $modal
@@ -227,7 +237,7 @@ function processaPontosTransformar($scope, $http, $modal, result){
 }
 
 /**
- * 
+ * Chama o serviço de transformação. Realiza o encapsulamento de todas as informações necessárias em um objeto JSON e envia para o servidor através do método POST.
  * @param $scope
  * @param $http
  * @param $modal
@@ -241,20 +251,24 @@ function transforma($scope, $http, $modal){
 	transformacao.sistemaCoordenadasDe = $scope.sistemaCoordenadasS1;
 	transformacao.sistemaCoordenadasPara = $scope.sistemaCoordenadasS2;
 	
+	// Se a tranformação retornar uma mensagem de sucesso (código 200), obtem o resultado da transformação
 	$http.post('service/transformacao', angular.toJson(transformacao)).
 	  success(function(data, status, headers, config) {
+		  //Recebe os pontos, verifica os pontos recebido e chama a função de exportação.
 		  $scope.pontosTransformados = data;
 		  verificaPontosTransformados(data);
 	      exportarTXT($scope);
 	  }).
+	  //Se o serviço de transformação retornar erro, o usuário será informado através de uma mensagem de erro.
 	  error(function(data, status, headers, config) {
 		  openModal('error', 'Problemas ao acessar o serviço de transformação.', $modal);
 	  });
 }
 
 /**
- * 
- * @param pontos
+ * Verifica se há pontos duplicados entre os pontos de controle carregados. Se houverem pontos de controle duplicados o usuário é informado através de uma mensagem de erro.
+ * O processamento da transformação é encerrado.
+ * @param pontos de controle a servem verificados 
  */
 function verificaPontosControle(pontos){
 	pontos.forEach(function(ponto, index){
@@ -267,8 +281,9 @@ function verificaPontosControle(pontos){
 }
 
 /**
- * 
- * @param pontos
+ * Após a tranformação dos pontos, varifica os pontos duplicados. 
+ * Se houverem pontos duplicados estes serão marcados como duplicados.
+ * @param pontos já transformados
  */
 function verificaPontosTransformados(pontos){
 	pontos.forEach(function(ponto, index){
@@ -282,10 +297,12 @@ function verificaPontosTransformados(pontos){
 }
 
 /**
+ * Método que abre uma janela modal, baseado nos parâmetros recebidos.
+ * Abre as janelas de Error, Ajuda e Sobre.
  * 
- * @param type
- * @param message
- * @param $modal
+ * @param type - Tipo da janela que deve ser aberta (error, ajuda, sobre)
+ * @param message - Quando o tipo é erro, então deve ser apresentada esta mensagem na janela 
+ * @param $modal - Instância do objeto a ser chamado
  */
 function openModal(type, message, $modal){
 	var template;
@@ -306,6 +323,7 @@ function openModal(type, message, $modal){
 		break;
 	}
 	
+	// Abre a janela modal baseada nas informações definidas.
 	$modal.open({
 		animation: true, 
 		templateUrl: template,
@@ -320,7 +338,7 @@ function openModal(type, message, $modal){
 }
 
 /**
- * 
+ * Reseta a informação de nome do arquivo carregado. Quando ocorre um erro no carregamento do arquivo o valor do nome deve ser atualizado.
  * @param tagId
  */
 function clearFileInputField(tagId) {
@@ -328,21 +346,29 @@ function clearFileInputField(tagId) {
 }
 
 /**
- * 
+ * Método que cria um arquivo te texto com os valores dos pontos já transformados.
+ * O formato padrão do nome do arquivo criado é com a informação da data e hora de sua criação: ResultadoS1S2_DDMMAAAA_HHMMSS.txt.
+ *  
  * @param $scope 
  */
 function exportarTXT($scope){
 
+	// Pega os pontos transformados
     var pontosTransformados = $scope.pontosTransformados;
+    // Pega o sistema de coordenadas de destino
     var sistemaCoordenadasS2 = pontosTransformados[0].sistemaCoordenadas.descricao;
+    // Cabeçalho de arquivo
     var str = 'ID\tNorte-'+sistemaCoordenadasS2+'\tEste-'+sistemaCoordenadasS2+'\r\n';
 
+    // Carrega todos os pontos transformados para dentro do arquivo
     for (var i = 0; i < pontosTransformados.length; i++) {
+    	// Para pontos duplicados adiciona um caractere (*) antes do ID
         var dup = (pontosTransformados[i].origem.duplicate == true) ? "*":"";
         var line = dup+pontosTransformados[i].id+"\t"+pontosTransformados[i].norte.toFixed(3).replace(".",",")+"\t"+pontosTransformados[i].este.toFixed(3).replace(".",",");
         str += line + '\r\n';
     }
 
+    //Cria o timestamp para ser utilizado na nomenclatura do arquivo gerado.
     var date = new Date();
     var dateString = date.getDate()+""+(date.getMonth() + 1)+""+date.getFullYear()+"_"+date.getHours()+""+date.getMinutes()+""+date.getSeconds();
 
@@ -352,22 +378,37 @@ function exportarTXT($scope){
 }
 /**
  * 
- * @param id
- * @param num
- * @param i
- * @returns
+ * Método que valida todos os valores numéricos dos pontos carregados. Apresenta um erro para o usuário se algum ponto não puder ser convertido para um valor numérico.
+ * 
+ * @param id - identificar do ponto verificado
+ * @param num - valor numérico do ponto verificado
+ * @param i - linha em que o ponto esta, dentro da tabela
+ * @returns retorna o valor numérico
  */
 function pontoValido(id,num,i){
+	
+	
+	// TESTAR - Faz a mesma coisa, porém com código melhor
+//	if (num !== undefined && Number(num.replace(",","."))){
+//		return num.replace(",",".");
+//		
+//	}else{
+//		throw new Error("O Ponto com ID ("+id+") Linha ("+(i+1)+") não está no formato correto.");
+//	}
+	
+	// Se o número for indefinido(nulo) não é possível utilizá-lo 
 	if (num !== undefined){
+		// Troca virgulas por ponto.
 		var number = num.replace(",",".");
 		
+		// Após o replace, verifica se o conteúdo da variável é um numero, se for: Retorna o valor numérico.
 		if(Number(number)){
 			return number;
 		}else{
+			// Se o valor da variável não puder ser convertido para um valor numérico, então apresenta uma mensagem de erro de formatação para o usuário
 			throw new Error("O Ponto com ID ("+id+") Linha ("+(i+1)+") não está no formato correto.");
 		}
 	}else{
 		throw new Error("O Ponto com ID ("+id+") Linha ("+(i+1)+") não está no formato correto.");
 	}
-		
 }

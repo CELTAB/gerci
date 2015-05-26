@@ -18,7 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author Mohamad Abu Ali <arabian@brasnet.org>
  * @author Thiago R. M. Bitencourt <thiago.mbitencourt@gmail.com>
- *
+ * Oferece o parser/conversão de informações em formato JSON para uma classe correspondente. 
+ * Também realiza o trabalho inverso, transformando um objeto de uma classe para uma mensagem no formato JSON.
  */
 @Provider
 public class MyJacksonJsonProvider implements ContextResolver<ObjectMapper> {
